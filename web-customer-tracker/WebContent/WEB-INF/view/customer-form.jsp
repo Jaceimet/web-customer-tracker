@@ -29,7 +29,7 @@
 	<div id="container">
 		<h3>Save Customer</h3>
 		
-		<form:form action="SaveCustomer" modelAttribute="customer" method="POST">
+		<form:form action="saveCustomer" modelAttribute="customer" method="POST">
 		
 			<table>
 				<tbody>
