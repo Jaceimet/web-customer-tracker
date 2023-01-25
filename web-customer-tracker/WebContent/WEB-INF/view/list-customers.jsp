@@ -57,7 +57,7 @@
 					</c:url>
 					
 					<!-- construct an "delete" link with customer id -->
-					<c:url var="deleteLink" value="/customer/showFormForDelete">
+					<c:url var="deleteLink" value="/customer/delete">
 						<c:param name="customerId" value="${tempCustomer.id}"/>
 					</c:url>
 				
