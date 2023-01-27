@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.luv2code.springdemo.entity.Customer;
+import com.luv2code.springdemo.util.SortsUtils;
 
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
@@ -19,26 +20,53 @@ public class CustomerDAOImpl implements CustomerDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	
 	@Override
 	public List<Customer> getCustomers() {
-		
-		
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<Customer> getCustomers(int theSortField) {
+
 		// get the current hibernate session
-		Session currentSession = sessionFactory.getCurrentSession();
+				Session currentSession = sessionFactory.getCurrentSession();
+				
+				// determine sort field
+				
+				String theFieldName = null;
+				
+				switch(theSortField) {
+					case SortsUtils.FIRST_NAME: theFieldName = "firstName";
+					break;
+				
+					case SortsUtils.LAST_NAME: theFieldName = "lastName";
+					break;
+				
+					case SortsUtils.EMAIL: theFieldName = "Email";
+					break;
+					
+					default:
+						
+						// if nothing matches, default to sort by last name
+						
+						theFieldName = "lastName";
+				}
+				
+				// create a query ... sort by last name
+				String queryString = "from cusomter order by " + theFieldName;
+				
+				Query<Customer> theQuery = 
+						currentSession.createQuery(queryString, Customer.class);
+				
+				// execute query and get result list
+				List<Customer> customers = theQuery.getResultList();
+				
+				// return the results
 		
-		// create a query ... sort by last name
-		Query<Customer> theQuery = 
-				currentSession.createQuery("from Customer order by lastName",
-											Customer.class);
-		
-		// execute query and get result list
-		List<Customer> customers = theQuery.getResultList();
-		
-		// return the results
 		return customers;
 	}
-
+	
 
 	@Override
 	public void saveCustomer(Customer theCustomer) {
@@ -111,6 +139,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 		
 		return customers;
 	}
+
+
+
+
+
+
 
 }
 
