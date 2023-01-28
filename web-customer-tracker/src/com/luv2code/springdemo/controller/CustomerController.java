@@ -24,11 +24,24 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
-	@RequestMapping("/list")
-	public String listCustomers(Model theModel) {
+	@GetMapping("/list")
+	public String listCustomers(Model theModel, @RequestParam(required=false)String sort) {
 		
 		// get customers from the service
-		List<Customer> theCustomers = customerService.getCustomers();
+		List<Customer> theCustomers = null;
+		
+		// check for sort field
+		if(sort != null) {
+			int theSortField = Integer.parseInt(sort);
+			
+			theCustomers = customerService.getCustomers(theSortField);
+			
+		}
+		else {
+			// no sort field provided ... default to sorting by lat name
+			
+			theCustomers = customerService.getCustomers(SortsUtils.LAST_NAME);
+		}
 		
 		// add the customers to the model
 		theModel.addAttribute("customers", theCustomers);
@@ -100,31 +113,7 @@ public class CustomerController {
 		
 	}
 	
-	@GetMapping("/list")
-	public String listCustomers(Model theModel, @RequestParam(required=false)String sort) {
-		
-		// get customers from the service
-		List<Customer> theCustomers = null;
-		
-		// check for sort field
-		if(sort != null) {
-			int theSortField = Integer.parseInt(sort);
-			
-			theCustomers = customerService.getCustomers(theSortField);
-			
-		}
-		else {
-			// no sort field provided ... default to sorting by lat name
-			
-			theCustomers = customerService.getCustomers(SortsUtils.LAST_NAME);
-		}
-		
-		// add the customers to the model
-		theModel.addAttribute("customers", theCustomers);
-		
-		return "list-customers";
-	}
-	
+
 	
 }
 

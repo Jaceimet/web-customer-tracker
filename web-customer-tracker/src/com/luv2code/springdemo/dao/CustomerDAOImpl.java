@@ -19,13 +19,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	// need to inject the session factory
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	@Override
-	public List<Customer> getCustomers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+		
 	@Override
 	public List<Customer> getCustomers(int theSortField) {
 
@@ -39,22 +33,17 @@ public class CustomerDAOImpl implements CustomerDAO {
 				switch(theSortField) {
 					case SortsUtils.FIRST_NAME: theFieldName = "firstName";
 					break;
-				
 					case SortsUtils.LAST_NAME: theFieldName = "lastName";
 					break;
-				
-					case SortsUtils.EMAIL: theFieldName = "Email";
+					case SortsUtils.EMAIL: theFieldName = "email";
 					break;
-					
 					default:
-						
 						// if nothing matches, default to sort by last name
-						
 						theFieldName = "lastName";
 				}
 				
 				// create a query ... sort by last name
-				String queryString = "from cusomter order by " + theFieldName;
+				String queryString = "from Customer order by " + theFieldName;
 				
 				Query<Customer> theQuery = 
 						currentSession.createQuery(queryString, Customer.class);
@@ -63,8 +52,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 				List<Customer> customers = theQuery.getResultList();
 				
 				// return the results
-		
-		return customers;
+				return customers;
 	}
 	
 

@@ -54,20 +54,20 @@
 				<!-- add code to sort by column name -->
 				
 				<!-- construct a sort link for first name -->
-				<c:url var="sortLinkFisrtName" value="/customer/list">
+				<c:url var="sortLinkFirstName" value="/customer/list">
 				
 				<c:param name="sort" value="<%=Integer.toString(SortsUtils.FIRST_NAME) %>"/> 
 				
 				</c:url>
 				
 				<!-- construct a sort link for last name -->
-				<c:url var="sortLinkLASTName" value="/customer/list">
+				<c:url var="sortLinkLastName" value="/customer/list">
 				
 				<c:param name="sort" value="<%=Integer.toString(SortsUtils.LAST_NAME) %>"/> 
 				
 				</c:url>
 				
-				<!-- construct a spot link for email -->
+				<!-- construct a sort link for email -->
 				<c:url var="sortLinkEmail" value="/customer/list">
 				
 				<c:param name="sort" value="<%=Integer.toString(SortsUtils.EMAIL) %>"/> 
@@ -75,9 +75,9 @@
 				</c:url>
 							
 				<tr>
-					<th><a href="{sortLinkFirst Name}">First Name</a></th>
-					<th><a href="{sortLinkLast Name}">Last Name</a></th>
-					<th><a href="{sortLinkEmail}">Email</a></th>
+					<th><a href="${sortLinkFirstName}">First Name</a></th>
+					<th><a href="${sortLinkLastName}">Last Name</a></th>
+					<th><a href="${sortLinkEmail}">Email</a></th>
 					<th>Action</th>
 				</tr>
 				
